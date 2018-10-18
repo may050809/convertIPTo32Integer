@@ -14,6 +14,7 @@ uint32 convertIPToNumber(char *IPString) {
     }
     BOOL dotFlag = false;
     BOOL spaceFlag = false;
+    int numberOfDot = 0;
     float a[4] = {0,0,0,0};
     float *p = a;
     while (*IPString != '\0') {
@@ -26,6 +27,14 @@ uint32 convertIPToNumber(char *IPString) {
             spaceFlag = false;
         } else if (*IPString == '.' ) {
             dotFlag = true;
+            if (*p > 255) {
+                return 0;
+            }
+            if (numberOfDot >= 3) {
+                return 0;
+            } else {
+                numberOfDot ++;
+            }
             p++;
         } else if (*IPString == ' ') {
             spaceFlag = true;
@@ -33,6 +42,9 @@ uint32 convertIPToNumber(char *IPString) {
             return 0;
         }
         IPString ++;
+    }
+    if (*p > 255) {
+        return 0;
     }
     uint32 result = pow(2, 24) * a[0] + pow(2, 16) * a[1] + pow(2, 8) * a[2] + 1 * a[3];
     return result;
@@ -63,6 +75,14 @@ int main(int argc, const char * argv[]) {
     char *invalidIP = "1 72.168.5.1";
     uint32 invalidResult = convertIPToNumber(invalidIP);
     unitTest(@"Invalid Case", 0, invalidResult);
+    
+    char *invalidIPForLargeNumber = "172.168.5.1068";
+    uint32 invalidIPForLargeNumberResult = convertIPToNumber(invalidIPForLargeNumber);
+    unitTest(@"Invalid Case For Large Number", 0, invalidIPForLargeNumberResult);
+    
+    char *invalidIPForMoreNumber = "172.168.5.1.1";
+    uint32 invalidIPForMoreNumberResult = convertIPToNumber(invalidIPForMoreNumber);
+    unitTest(@"Invalid Case For More Number", 0, invalidIPForMoreNumberResult);
     
     return 0;
 }
