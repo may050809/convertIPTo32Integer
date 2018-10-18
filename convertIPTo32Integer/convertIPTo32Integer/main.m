@@ -80,6 +80,10 @@ int main(int argc, const char * argv[]) {
     uint32 invalidIPForLargeNumberResult = convertIPToNumber(invalidIPForLargeNumber);
     unitTest(@"Invalid Case For Large Number", 0, invalidIPForLargeNumberResult);
     
+    char *invalidIPForInnerLargeNumber = "172.1681.5.1";
+    uint32 invalidIPForInnerLargeNumberResult = convertIPToNumber(invalidIPForInnerLargeNumber);
+    unitTest(@"Invalid Case For Inner Large Number", 0, invalidIPForInnerLargeNumberResult);
+    
     char *invalidIPForMoreNumber = "172.168.5.1.1";
     uint32 invalidIPForMoreNumberResult = convertIPToNumber(invalidIPForMoreNumber);
     unitTest(@"Invalid Case For More Number", 0, invalidIPForMoreNumberResult);
