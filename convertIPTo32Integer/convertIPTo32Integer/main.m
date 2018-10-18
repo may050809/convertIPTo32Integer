@@ -88,5 +88,17 @@ int main(int argc, const char * argv[]) {
     uint32 invalidIPForMoreNumberResult = convertIPToNumber(invalidIPForMoreNumber);
     unitTest(@"Invalid Case For More Number", 0, invalidIPForMoreNumberResult);
     
+    char *invalidIPForOtherCharacter = "o172.168.5.1";
+    uint32 invalidIPForOtherCharacterResult = convertIPToNumber(invalidIPForOtherCharacter);
+    unitTest(@"Invalid Case For Other Character First", 0, invalidIPForOtherCharacterResult);
+    
+    char *invalidIPForOtherCharacterMiddle = "172.16o8.5.1.1";
+    uint32 invalidIPForOtherCharacterMiddleResult = convertIPToNumber(invalidIPForOtherCharacterMiddle);
+    unitTest(@"Invalid Case For Other Character Middle", 0, invalidIPForOtherCharacterMiddleResult);
+    
+    char *invalidIPForOtherCharacterLast = "172.168.5.1o";
+    uint32 invalidIPForOtherCharacterLastResult = convertIPToNumber(invalidIPForOtherCharacterLast);
+    unitTest(@"Invalid Case For Other Character Last", 0, invalidIPForOtherCharacterLastResult);
+    
     return 0;
 }
